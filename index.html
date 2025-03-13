@@ -2,43 +2,1374 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="./tech_stacks/ruby.png" type="image/png">
+  <link rel="apple-touch-icon" href="./tech_stacks/ruby.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sparsha Lamichhane</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Sparsha Lamichhane | Ruby on Rails Developer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ruby-red: #CC342D;
+      --ruby-dark: #9B111E;
+      --editor-bg: #1E1E2E;
+      --editor-text: #CDD6F4;
+      --keyword: #F5C2E7;
+      --string: #A6E3A1;
+      --comment: #7F849C;
+      --method: #89DCEB;
+      --symbol: #F38BA8;
+      --constant: #FAB387;
+      --function: #89B4FA;
+      --class: #74C7EC;
+    }
+
+    * {
+      font-family: 'Fira Code', monospace;
+    }
+
+    body {
+      background-color: var(--editor-bg);
+      color: var(--editor-text);
+    }
+
+    .code-keyword {
+      color: var(--keyword);
+    }
+
+    .code-string {
+      color: var(--string);
+    }
+
+    .code-comment {
+      color: var(--comment);
+    }
+
+    .code-method {
+      color: var(--method);
+    }
+
+    .code-symbol {
+      color: var(--symbol);
+    }
+
+    .code-constant {
+      color: var(--constant);
+    }
+
+    .code-function {
+      color: var(--function);
+    }
+
+    .code-class {
+      color: var(--class);
+    }
+
+    .line-numbers {
+      color: var(--comment);
+      text-align: right;
+      padding-right: 1rem;
+      user-select: none;
+      border-right: 1px solid rgba(127, 132, 156, 0.3);
+    }
+
+    .ruby-red {
+      color: var(--ruby-red);
+    }
+
+    .ruby-bg {
+      background-color: var(--ruby-red);
+    }
+
+    .active-link {
+      color: var(--ruby-red);
+    }
+
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #21252b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3e4451;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4b5363;
+    }
+    /* Add this to your CSS styles to fix the transparent navigation on mobile */
+
+    @media (max-width: 768px) {
+      nav.fixed {
+        background-color: var(--editor-bg) !important; /* Solid background using the theme color */
+        border-bottom: 1px solid rgba(127, 132, 156, 0.3);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-scrolled {
+        background-color: rgba(30, 30, 46, 0.98) !important;
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.fixed.bg-opacity-90,
+      nav.fixed.md\:bg-opacity-90 {
+        background-opacity: 1 !important;
+      }
+
+      /* Make mobile menu more visible */
+      #mobile-menu {
+        background-color: var(--editor-bg);
+        border: 1px solid rgba(127, 132, 156, 0.3);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Improve mobile menu items */
+      #mobile-menu a {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(127, 132, 156, 0.1);
+      }
+
+      #mobile-menu a:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: var(--function);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      from, to {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    <!-- Add these styles to your existing <style> section -->
+.ruby-icon-bg {
+  position: fixed;
+  bottom: -120px;
+  right: -120px;
+  width: 500px;
+  height: 500px;
+  background-image: url('./tech_stacks/ruby.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.03;
+  z-index: -1;
+  transform: rotate(-15deg);
+}
+
+.ruby-icon-float {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-image: url('./tech_stacks/ruby.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: -1;
+  animation: float-ruby 20s ease-in-out infinite;
+}
+
+.ruby-icon-float.one {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.ruby-icon-float.two {
+  top: 60%;
+  left: 15%;
+  width: 60px;
+  height: 60px;
+  animation-delay: -5s;
+}
+
+.ruby-icon-float.three {
+  top: 30%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  animation-delay: -10s;
+}
+
+.ruby-icon-float.four {
+  bottom: 15%;
+  right: 10%;
+  width: 70px;
+  height: 70px;
+  animation-delay: -15s;
+}
+
+@keyframes float-ruby {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(20px) rotate(-5deg);
+  }
+}
+
+.section-header {
+  position: relative;
+  display: inline-block;
+}
+
+.section-header:before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-image: url('./tech_stacks/ruby.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Enhanced section transitions */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ruby loading animation for page load */
+.ruby-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--editor-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.ruby-loader img {
+  width: 100px;
+  height: 100px;
+  animation: pulse-ruby 2s infinite;
+}
+
+@keyframes pulse-ruby {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+}
+
+/* Ruby accent for navbar */
+nav.fixed:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ruby-red), transparent);
+}
+
+    .skill-tag {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background-color: rgba(204, 52, 45, 0.1);
+      color: var(--ruby-red);
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid rgba(204, 52, 45, 0.2);
+    }
+
+    .project-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(127, 132, 156, 0.2);
+      background-color: rgba(30, 30, 46, 0.5);
+      border-radius: 0.5rem;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(204, 52, 45, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .approach-card {
+      display: block;
+      margin-bottom: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(127, 132, 156, 0.2);
+      background-color: rgba(30, 30, 46, 0.5);
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .approach-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(204, 52, 45, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background-color: var(--ruby-red);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--ruby-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--editor-text);
+      border: 2px solid rgba(127, 132, 156, 0.4);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--ruby-red);
+      color: var(--ruby-red);
+      transform: translateY(-2px);
+    }
+
+    .hover\:ruby-red:hover {
+      color: var(--ruby-red);
+    }
+
+    .transition-colors {
+      transition-property: color;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+
+    /* Image animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .image-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Pulsing glow animation */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.4; }
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    /* Enhanced code scrolling */
+    .code-container {
+      position: relative;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Mobile responsive improvements */
+    @media (max-width: 768px) {
+      body {
+        font-size: 0.95rem;
+      }
+
+      pre {
+        max-width: calc(100vw - 3rem);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.85rem;
+        padding-bottom: 0.5rem;
+      }
+
+      section {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+
+      .line-numbers {
+        padding-right: 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .project-card {
+        padding: 1rem;
+      }
+
+      .btn {
+        padding: 0.8rem 1.25rem;
+        min-height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .skill-tag {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.7rem;
+      }
+
+      input, textarea {
+        font-size: 1rem !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .fixed {
+        position: absolute;
+      }
+
+      #home {
+        padding-top: 7rem;
+      }
+
+      .skill-tag {
+        margin-right: 0.3rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .grid {
+        gap: 1rem !important;
+      }
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="min-h-screen">
 
-  <header class="py-6 px-4 md:py-12 md:px-12" data-controller="navbar" data-navbar-open-value="false">
-    <div class="max-w-7xl mx-auto flex justify-center items-center h-10 lg:justify-between md:justify-between">
-      <a href="/" class="inline-flex items-center">
-        <img src="https://media.licdn.com/dms/image/v2/D5603AQFn5V-O6a0GGA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1692732747321?e=1731542400&v=beta&t=ThpJ2bWf1YAXIXEeV8V9WbIjmhKuNlRR05dLgi6NlsQ" alt="Logo" class="rounded h-8 lg:h-10"> <span class="ml-3 font-bold text-lg">sparshalamichhane.com.np</span>
-      </a>
+  <div class="ruby-loader">
+    <img src="./tech_stacks/ruby.png" alt="Ruby Loading">
+  </div>
 
-      <nav class="text-base leading-5 text-center items-center md:gap-6 gap-4 hidden md:flex" data-navbar-target="main">
-        <a class="font-medium text-black" href="/">Home</a>
-        <a class="font-medium text-black" href="/about.html">About</a>
-        <a class="font-medium text-black" href="/open_source.html">Open Source</a>
-        <a class="font-medium text-black" href="/designs.html">Designs</a>
-      </nav>
+  <!-- Floating Ruby icons in the background -->
+  <div class="ruby-icon-float one"></div>
+  <div class="ruby-icon-float two"></div>
+  <div class="ruby-icon-float three"></div>
+  <div class="ruby-icon-float four"></div>
+
+  <!-- Large Ruby icon in the background -->
+  <div class="ruby-icon-bg"></div>
+
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-10 bg-editor-bg px-4 py-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-between items-center">
+        <a href="#home" class="flex items-center space-x-2">
+          <span class="text-xl font-bold ruby-red">sparsha<span class="text-editor-text">.rb</span></span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="hover:ruby-red active-link" id="nav-home">home</a>
+          <a href="#about" class="hover:ruby-red" id="nav-about">about</a>
+          <a href="#skills" class="hover:ruby-red" id="nav-skills">skills</a>
+          <a href="#projects" class="hover:ruby-red" id="nav-projects">projects</a>
+          <a href="#opensource" class="hover:ruby-red" id="nav-opensource">open_source</a>
+          <a href="#contact" class="hover:ruby-red" id="nav-contact">contact</a>
+          <a href="https://github.com/sparshalc" target="_blank" class="text-gray-400 hover:text-white">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+        </div>
+
+        <button id="menu-toggle" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
     </div>
-  </header>
 
-  <main class="flex-grow flex flex-col justify-center items-center text-center px-4 md:px-12">
-    <div class="w-[55vw] mt-3 md:mt-0">
-      <img src="https://media.licdn.com/dms/image/v2/D5603AQFn5V-O6a0GGA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1692732747321?e=1731542400&v=beta&t=ThpJ2bWf1YAXIXEeV8V9WbIjmhKuNlRR05dLgi6NlsQ" alt="Sparsha Lamichhane" class="rounded md:rounded-xl block md:hidden mx-auto">
+    <!-- Mobile menu with solid background -->
+    <div id="mobile-menu" class="md:hidden hidden mt-4 rounded-lg overflow-hidden bg-editor-bg border border-gray-700">
+      <div class="py-1">
+        <a href="#home" class="block px-4 py-3 text-base hover:bg-gray-700 border-b border-gray-700">home</a>
+        <a href="#about" class="block px-4 py-3 text-base hover:bg-gray-700 border-b border-gray-700">about</a>
+        <a href="#skills" class="block px-4 py-3 text-base hover:bg-gray-700 border-b border-gray-700">skills</a>
+        <a href="#projects" class="block px-4 py-3 text-base hover:bg-gray-700 border-b border-gray-700">projects</a>
+        <a href="#opensource" class="block px-4 py-3 text-base hover:bg-gray-700 border-b border-gray-700">open_source</a>
+        <a href="#contact" class="block px-4 py-3 text-base hover:bg-gray-700">contact</a>
+      </div>
     </div>
+  </nav>
 
-    <div class="bg-white max-w-7xl mx-auto grid md:grid-cols-[2fr,1fr] lg:grid-cols-[3fr,1fr] my-6 md:my-12 lg:my-20 text-center md:text-left">
-      <div class="md:pr-16 flex items-center text-lg md:text-4xl">
-        <div class="leading-relaxed">
-          <span class="font-bold bg-[rgb(255,226,0)] p-1">Hey, <a href="/about.html">I'm Sparsha Lamichhane.</a></span>
-          <span> I’m a <a href="/projects.html" class="underline">Full-Stack Software Developer</a> with a passion for <a href="/open_source.html" class="underline">open-source projects</a> and a deep love for technology. Besides coding, I enjoy <a class="underline" href="/designs.html">Graphic design</a>, music, and Gaming.</span>
+  <!-- Hero Section -->
+  <section id="home" class="pt-12 md:pt-12 min-h-screen flex items-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+        <!-- Mobile: Image appears first, Desktop: Code block appears first -->
+        <div class="md:hidden w-full flex justify-center mb-8">
+          <div class="relative image-float">
+            <!-- Enhanced glow effect -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-ruby-red to-pink-500 rounded-full blur-xl opacity-25 pulse-glow"></div>
+
+            <!-- Image container with enhanced styling -->
+            <div class="relative z-10 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl" style="width: 220px; height: 220px;">
+              <!-- Enhanced image -->
+              <img src="./me/me.JPG" alt="Sparsha Lamichhane" class="w-full h-full object-cover transform scale-105 transition-transform duration-700 hover:scale-110" style="filter: brightness(1.15) contrast(1.1);">
+
+              <!-- Subtle overlay to add depth -->
+              <div class="absolute inset-0 bg-gradient-to-t from-ruby-red/10 to-transparent opacity-70 mix-blend-overlay"></div>
+            </div>
+
+            <!-- Decorative element -->
+            <div class="absolute -bottom-3 -right-3 w-20 h-20 bg-gradient-to-tr from-ruby-red to-pink-500 rounded-full blur-md opacity-30 animate-pulse"></div>
+          </div>
+        </div>
+
+        <!-- Code section - takes full width on mobile, 3/5 width on desktop -->
+        <div class="w-full md:w-3/5 space-y-6">
+          <div class="flex items-baseline code-container">
+            <div class="line-numbers pr-4 flex-shrink-0">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div>4</div>
+              <div>5</div>
+              <div>6</div>
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
+              <div>10</div>
+              <div>11</div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
+              <div>15</div>
+              <div>16</div>
+              <div>17</div>
+              <div>18</div>
+            </div>
+            <div class="overflow-x-auto">
+              <pre><span class="code-keyword">class</span> <span class="code-class">Developer</span> < <span class="code-class">ApplicationRecord</span>
+  <span class="code-comment"># About me</span>
+  <span class="code-keyword">attr_accessor</span> <span class="code-symbol">:name</span>, <span class="code-symbol">:role</span>, <span class="code-symbol">:location</span>, <span class="code-symbol">:skills</span>
+
+  <span class="code-keyword">def</span> <span class="code-method">initialize</span>
+    <span class="code-symbol">@name</span> = <span class="code-string">"Sparsha Lamichhane"</span>
+    <span class="code-symbol">@role</span> = <span class="code-string">"Full-Stack Ruby on Rails Developer"</span>
+    <span class="code-symbol">@location</span> = <span class="code-string">"Kathmandu, Nepal"</span>
+    <span class="code-symbol">@skills</span> = [<span class="code-string">"Ruby"</span>, <span class="code-string">"Rails"</span>, <span class="code-string">"JavaScript"</span>, <span class="code-string">"React"</span>, <span class="code-string">"Hotwire"</span>, <span class="code-string">"PostgreSQL"</span>]
+    <span class="code-symbol">@experience</span> = <span class="code-string">"2+ years"</span>
+    <span class="code-symbol">@passion</span> = <span class="code-string">"Building elegant web applications"</span>
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def</span> <span class="code-method">contact</span>
+    {
+      <span class="code-symbol">email:</span> <span class="code-string">"imailsparsha@gmail.com"</span>,
+      <span class="code-symbol">github:</span> <span class="code-string">"https://github.com/sparshalc"</span>
+    }
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mt-8">
+            <a href="#projects" class="btn btn-primary w-full sm:w-auto flex justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+              View Projects
+            </a>
+            <a href="mailto:imailsparsha@gmail.com" class="btn btn-outline w-full sm:w-auto flex justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Contact Me
+            </a>
+          </div>
+        </div>
+
+        <!-- Desktop image - hidden on mobile -->
+        <div class="hidden md:block md:w-2/5 flex justify-center">
+          <div class="relative image-float">
+            <!-- Enhanced glow effect -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-ruby-red to-pink-500 rounded-full blur-xl opacity-25 pulse-glow"></div>
+
+            <!-- Image container with enhanced styling -->
+            <div class="relative z-10 rounded-full overflow-hidden border-4 border-gray-800 shadow-2xl" style="width: 280px; height: 280px;">
+              <!-- Enhanced image -->
+              <img src="./me/me.JPG" alt="Sparsha Lamichhane" class="w-full h-full object-cover transform scale-105 transition-transform duration-700 hover:scale-110" style="filter: brightness(1.15) contrast(1.1);">
+
+              <!-- Subtle overlay to add depth -->
+              <div class="absolute inset-0 bg-gradient-to-t from-ruby-red/10 to-transparent opacity-70 mix-blend-overlay"></div>
+            </div>
+
+            <!-- Decorative element -->
+            <div class="absolute -bottom-3 -right-3 w-24 h-24 bg-gradient-to-tr from-ruby-red to-pink-500 rounded-full blur-md opacity-30 animate-pulse"></div>
+          </div>
         </div>
       </div>
-      <div class="md:grid md:place-content-center">
-        <img src="https://media.licdn.com/dms/image/v2/D5603AQFn5V-O6a0GGA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1692732747321?e=1731542400&v=beta&t=ThpJ2bWf1YAXIXEeV8V9WbIjmhKuNlRR05dLgi6NlsQ" alt="Sparsha Lamichhane" class="rounded-xl hidden md:block mx-auto">
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 md:mb-10">
+        <div class="flex items-baseline mb-8 md:mb-12 code-container">
+          <div class="line-numbers pr-4 flex-shrink-0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="overflow-x-auto">
+            <pre><span class="code-keyword">module</span> <span class="code-class">AboutMe</span>
+  <span class="code-comment"># Learning about who I am and what I do</span>
+<span class="code-keyword">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div class="space-y-6">
+          <div class="flex items-baseline code-container">
+            <div class="line-numbers pr-4 flex-shrink-0">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div>4</div>
+              <div>5</div>
+              <div>6</div>
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
+              <div>10</div>
+              <div>11</div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
+            </div>
+            <div class="overflow-x-auto">
+              <pre><span class="code-keyword">module</span> <span class="code-class">AboutMe</span>
+  <span class="code-keyword">def self</span>.<span class="code-method">bio</span>
+    <span class="code-string">"I'm a 19-year-old full-stack developer with over 2 years
+    of hands-on experience in Ruby on Rails. My passion lies in
+    creating dynamic web applications that combine elegant code
+    with exceptional user experiences."</span>
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def self</span>.<span class="code-method">journey</span>
+    <span class="code-string">"I've honed my skills in both front-end and back-end development,
+    specializing in Ruby on Rails. I thrive on tackling complex problems
+    and turning ideas into functional, scalable applications."</span>
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def self</span>.<span class="code-method">beyond_coding</span>
+    <span class="code-string">"When I'm not coding, I enjoy graphic design, music, and gaming.
+    These creative outlets complement my development work."</span>
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-16 md:py-20 bg-gray-900 bg-opacity-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 md:mb-10">
+        <div class="flex items-baseline mb-8 md:mb-12 code-container">
+          <div class="line-numbers pr-4 flex-shrink-0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="overflow-x-auto">
+            <pre><span class="code-keyword">module</span> <span class="code-class">TechStack</span>
+  <span class="code-comment"># The tools and technologies I work with</span>
+<span class="code-keyword">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-baseline mb-8 md:mb-12 code-container">
+        <div class="line-numbers pr-4 flex-shrink-0">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div>10</div>
+          <div>11</div>
+          <div>12</div>
+          <div>13</div>
+          <div>14</div>
+          <div>15</div>
+        </div>
+        <div class="overflow-x-auto">
+          <pre><span class="code-keyword">module</span> <span class="code-class">TechStack</span>
+  <span class="code-keyword">def self</span>.<span class="code-method">languages</span>
+    [<span class="code-string">"Ruby"</span>, <span class="code-string">"JavaScript"</span>, <span class="code-string">"HTML5"</span>, <span class="code-string">"CSS3"</span>, <span class="code-string">"SQL"</span>]
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def self</span>.<span class="code-method">frameworks</span>
+    [<span class="code-string">"Ruby on Rails"</span>, <span class="code-string">"React"</span>, <span class="code-string">"Hotwire"</span>, <span class="code-string">"Turbo"</span>, <span class="code-string">"Stimulus"</span>]
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def self</span>.<span class="code-method">databases</span>
+    [<span class="code-string">"PostgreSQL"</span>, <span class="code-string">"MySQL"</span>, <span class="code-string">"Redis"</span>]
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def self</span>.<span class="code-method">tools</span>
+    [<span class="code-string">"Git"</span>, <span class="code-string">"GitHub"</span>, <span class="code-string">"Docker"</span>, <span class="code-string">"RSpec"</span>, <span class="code-string">"Vim"</span>]
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 mt-8 md:mt-12">
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/ruby/ruby-original.svg" alt="Ruby" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Ruby"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/rails/rails-original-wordmark.svg" alt="Rails" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Ruby on Rails"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"JavaScript"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"React"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"PostgreSQL"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="./tech_stacks/stimulus.svg" alt="Stimulus" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Stimulus"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="./tech_stacks/turbo.svg" alt="Turbo" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Turbo"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"HTML5"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS3" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"CSS3"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Git"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vim/vim-original.svg" alt="Vim" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Vim"</span>
+          </div>
+        </div>
+
+        <div class="border border-gray-700 rounded-lg p-3 md:p-4 flex flex-col items-center bg-opacity-40 bg-gray-900">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" alt="Docker" class="h-12 w-12 md:h-16 md:w-16 mb-3 md:mb-4">
+          <div class="text-center">
+            <span class="code-string">"Docker"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 md:mb-10">
+        <div class="flex items-baseline mb-8 md:mb-12 code-container">
+          <div class="line-numbers pr-4 flex-shrink-0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="overflow-x-auto">
+            <pre><span class="code-keyword">class</span> <span class="code-class">Portfolio</span> < <span class="code-class">ApplicationRecord</span>
+  <span class="code-comment"># A collection of my best work</span>
+<span class="code-keyword">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-baseline mb-8 md:mb-12 code-container">
+        <div class="line-numbers pr-4 flex-shrink-0">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div>10</div>
+          <div>11</div>
+          <div>12</div>
+        </div>
+        <div class="overflow-x-auto">
+          <pre><span class="code-keyword">class</span> <span class="code-class">Portfolio</span> < <span class="code-class">ApplicationRecord</span>
+  <span class="code-keyword">has_many</span> <span class="code-symbol">:projects</span>, <span class="code-symbol">dependent:</span> <span class="code-symbol">:destroy</span>
+
+  <span class="code-keyword">def</span> <span class="code-method">featured_projects</span>
+    <span class="code-symbol">projects</span>.where(<span class="code-symbol">featured:</span> <span class="code-keyword">true</span>).order(<span class="code-symbol">created_at:</span> <span class="code-symbol">:desc</span>)
+  <span class="code-keyword">end</span>
+
+  <span class="code-keyword">def</span> <span class="code-method">recent_projects</span>(<span class="code-symbol">limit:</span> 3)
+    <span class="code-symbol">projects</span>.order(<span class="code-symbol">created_at:</span> <span class="code-symbol">:desc</span>).limit(limit)
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
+        <!-- Project 1 -->
+        <div class="project-card overflow-hidden">
+          <div class="relative h-40 sm:h-48">
+            <img src="./Projects/wordsmith.png" alt="WordSmith" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-70"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+              <h3 class="text-lg md:text-xl font-semibold"><span class="ruby-red">Project</span>::WordSmith</h3>
+            </div>
+          </div>
+          <div class="p-4 md:p-5">
+            <div class="mb-3 md:mb-4 flex flex-wrap">
+              <span class="skill-tag">Ruby on Rails</span>
+              <span class="skill-tag">Hotwire</span>
+              <span class="skill-tag">PostgreSQL</span>
+            </div>
+            <p class="text-gray-300 mb-4 text-sm md:text-base">
+              A blog application built with Ruby on Rails that enables users to publish posts and follow other writers in a vibrant community.
+            </p>
+            <div class="flex justify-between mt-4 md:mt-6">
+              <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center text-sm md:text-base">
+                <i class="fas fa-external-link-alt mr-2"></i> Demo
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors flex items-center text-sm md:text-base">
+                <i class="fab fa-github mr-2"></i> Source
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card overflow-hidden">
+          <div class="relative h-40 sm:h-48">
+            <img src="./Projects/glowcart.png" alt="GlowCart" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-70"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+              <h3 class="text-lg md:text-xl font-semibold"><span class="ruby-red">Project</span>::GlowCart</h3>
+            </div>
+          </div>
+          <div class="p-4 md:p-5">
+            <div class="mb-3 md:mb-4 flex flex-wrap">
+              <span class="skill-tag">Ruby on Rails</span>
+              <span class="skill-tag">Arduino</span>
+              <span class="skill-tag">JavaScript</span>
+            </div>
+            <p class="text-gray-300 mb-4 text-sm md:text-base">
+              An e-commerce platform with Arduino integration, sending signals to hardware when products are added to the cart.
+            </p>
+            <div class="flex justify-between mt-4 md:mt-6">
+              <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center text-sm md:text-base">
+                <i class="fas fa-external-link-alt mr-2"></i> Demo
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors flex items-center text-sm md:text-base">
+                <i class="fab fa-github mr-2"></i> Source
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card overflow-hidden">
+          <div class="relative h-40 sm:h-48">
+            <img src="./Projects/vroom.webp" alt="Vroom Car Rental" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-70"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+              <h3 class="text-lg md:text-xl font-semibold"><span class="ruby-red">Project</span>::VroomRental</h3>
+            </div>
+          </div>
+          <div class="p-4 md:p-5">
+            <div class="mb-3 md:mb-4 flex flex-wrap">
+              <span class="skill-tag">Ruby on Rails</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">PostgreSQL</span>
+            </div>
+            <p class="text-gray-300 mb-4 text-sm md:text-base">
+              A car rental platform providing a seamless booking experience with a user-friendly interface.
+            </p>
+            <div class="flex justify-between mt-4 md:mt-6">
+              <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center text-sm md:text-base">
+                <i class="fas fa-external-link-alt mr-2"></i> Demo
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors flex items-center text-sm md:text-base">
+                <i class="fab fa-github mr-2"></i> Source
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 md:mt-12">
+        <a href="https://github.com/sparshalc" target="_blank" class="btn btn-outline">
+          <i class="fab fa-github mr-2"></i> See more on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Section -->
+  <section id="opensource" class="py-16 md:py-20 bg-gray-900 bg-opacity-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 md:mb-10">
+        <div class="flex items-baseline mb-8 md:mb-12 code-container">
+          <div class="line-numbers pr-4 flex-shrink-0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="overflow-x-auto">
+            <pre><span class="code-keyword">module</span> <span class="code-class">OpenSource</span> < <span class="code-class">ApplicationRecord</span>
+              <span class="code-comment"># My contributions to the developer community</span>
+            <span class="code-keyword">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-baseline mb-8 md:mb-12 code-container">
+        <div class="line-numbers pr-4 flex-shrink-0">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div>10</div>
+          <div>11</div>
+          <div>12</div>
+          <div>13</div>
+          <div>14</div>
+          <div>15</div>
+          <div>16</div>
+          <div>17</div>
+        </div>
+        <div class="overflow-x-auto">
+          <pre><span class="code-keyword">module</span> <span class="code-class">OpenSource</span>
+  <span class="code-keyword">def self</span>.<span class="code-method">contributions</span>
+    [
+      {
+        <span class="code-symbol">name:</span> <span class="code-string">"GoodJob"</span>,
+        <span class="code-symbol">description:</span> <span class="code-string">"Multithreaded, Postgres-based, Active Job backend for Ruby on Rails"</span>,
+        <span class="code-symbol">url:</span> <span class="code-string">"https://github.com/bensheldon/good_job"</span>
+      },
+      {
+        <span class="code-symbol">name:</span> <span class="code-string">"Pet Rescue"</span>,
+        <span class="code-symbol">description:</span> <span class="code-string">"Application for connecting adopters with pets"</span>,
+        <span class="code-symbol">url:</span> <span class="code-string">"https://github.com/rubyforgood/pet-rescue"</span>
+      },
+      {
+        <span class="code-symbol">name:</span> <span class="code-string">"The Odin Project"</span>,
+        <span class="code-symbol">description:</span> <span class="code-string">"Open-source coding curriculum"</span>,
+        <span class="code-symbol">url:</span> <span class="code-string">"https://github.com/TheOdinProject/theodinproject"</span>
+      }
+    ]
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
+        <!-- Open Source 1 -->
+        <div class="project-card p-4 md:p-6">
+          <div class="flex items-center mb-4 md:mb-6">
+            <img src="./OpenSource/Goodjob.png" alt="GoodJob" class="h-10 w-10 md:h-12 md:w-12 rounded mr-4">
+            <h3 class="text-lg md:text-xl font-semibold ruby-red">GoodJob</h3>
+          </div>
+          <p class="text-gray-300 mb-4 md:mb-6 text-sm md:text-base">
+            Multithreaded, Postgres-based, Active Job backend for Ruby on Rails. A robust alternative to Sidekiq and Delayed Job.
+          </p>
+          <div class="mb-4 flex flex-wrap">
+            <span class="skill-tag">Ruby</span>
+            <span class="skill-tag">Rails</span>
+            <span class="skill-tag">PostgreSQL</span>
+          </div>
+          <a href="https://github.com/bensheldon/good_job" target="_blank" class="ruby-red hover:text-red-300 inline-flex items-center transition-colors text-sm md:text-base">
+            <i class="fab fa-github mr-2"></i> View Repository
+          </a>
+        </div>
+
+        <!-- Open Source 2 -->
+        <div class="project-card p-4 md:p-6">
+          <div class="flex items-center mb-4 md:mb-6">
+            <img src="https://avatars.githubusercontent.com/u/11573263?s=200&v=4" alt="Ruby For Good" class="h-10 w-10 md:h-12 md:w-12 rounded mr-4">
+            <h3 class="text-lg md:text-xl font-semibold ruby-red">Pet Rescue</h3>
+          </div>
+          <p class="text-gray-300 mb-4 md:mb-6 text-sm md:text-base">
+            An application making it easy to link adopters/fosters with pets, supporting grassroots rescue organizations.
+          </p>
+          <div class="mb-4 flex flex-wrap">
+            <span class="skill-tag">Ruby</span>
+            <span class="skill-tag">Rails</span>
+            <span class="skill-tag">RSpec</span>
+          </div>
+          <a href="https://github.com/rubyforgood/pet-rescue" target="_blank" class="ruby-red hover:text-red-300 inline-flex items-center transition-colors text-sm md:text-base">
+            <i class="fab fa-github mr-2"></i> View Repository
+          </a>
+        </div>
+
+        <!-- Open Source 3 -->
+        <div class="project-card p-4 md:p-6">
+          <div class="flex items-center mb-4 md:mb-6">
+            <img src="https://avatars.githubusercontent.com/u/4441966?s=200&v=4" alt="The Odin Project" class="h-10 w-10 md:h-12 md:w-12 rounded mr-4">
+            <h3 class="text-lg md:text-xl font-semibold ruby-red">The Odin Project</h3>
+          </div>
+          <p class="text-gray-300 mb-4 md:mb-6 text-sm md:text-base">
+            An open-source coding curriculum that helps aspiring web developers learn together for free.
+          </p>
+          <div class="mb-4 flex flex-wrap">
+            <span class="skill-tag">Ruby</span>
+            <span class="skill-tag">Rails</span>
+            <span class="skill-tag">JavaScript</span>
+          </div>
+          <a href="https://github.com/TheOdinProject/theodinproject" target="_blank" class="ruby-red hover:text-red-300 inline-flex items-center transition-colors text-sm md:text-base">
+            <i class="fab fa-github mr-2"></i> View Repository
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 md:mb-10">
+        <div class="flex items-baseline mb-8 md:mb-12 code-container">
+          <div class="line-numbers pr-4 flex-shrink-0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="overflow-x-auto">
+            <pre><span class="code-keyword">def</span> <span class="code-method">contact_me</span>
+  <span class="code-comment"># Let's work together</span>
+<span class="code-keyword">end</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-baseline mb-8 md:mb-12 code-container">
+        <div class="line-numbers pr-4 flex-shrink-0">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+        </div>
+        <div class="overflow-x-auto">
+          <pre><span class="code-keyword">def</span> <span class="code-method">send_message</span>(<span class="code-symbol">name:</span>, <span class="code-symbol">email:</span>, <span class="code-symbol">message:</span>)
+  <span class="code-keyword">if</span> <span class="code-symbol">name</span>.present? && <span class="code-symbol">email</span>.present? && <span class="code-symbol">message</span>.present?
+    <span class="code-method">ContactMailer</span>.with(<span class="code-symbol">name:</span> <span class="code-symbol">name</span>, <span class="code-symbol">email:</span> <span class="code-symbol">email</span>, <span class="code-symbol">message:</span> <span class="code-symbol">message</span>).deliver_later
+    { <span class="code-symbol">success:</span> <span class="code-keyword">true</span>, <span class="code-symbol">message:</span> <span class="code-string">"Thanks for reaching out! I'll get back to you soon."</span> }
+  <span class="code-keyword">else</span>
+    { <span class="code-symbol">success:</span> <span class="code-keyword">false</span>, <span class="code-symbol">message:</span> <span class="code-string">"Please fill out all fields."</span> }
+  <span class="code-keyword">end</span>
+<span class="code-keyword">end</span></pre>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mt-8 md:mt-12">
+        <div class="project-card p-6 md:p-8">
+          <form action="https://formspree.io/f/xnqyrbgp" method="POST" class="contact-form" data-reveal="right" class="space-y-4 md:space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-1">name</label>
+              <input required type="text" id="name" name="name" class="w-full rounded-md border-gray-700 bg-gray-800 bg-opacity-70 focus:border-ruby-red focus:ring-ruby-red text-white py-2 md:py-3 px-3 md:px-4">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-1">email</label>
+              <input required type="email" id="email" name="email" class="w-full rounded-md border-gray-700 bg-gray-800 bg-opacity-70 focus:border-ruby-red focus:ring-ruby-red text-white py-2 md:py-3 px-3 md:px-4">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-1">message</label>
+              <textarea required id="message" name="message" rows="4" class="w-full rounded-md border-gray-700 bg-gray-800 bg-opacity-70 focus:border-ruby-red focus:ring-ruby-red text-white py-2 md:py-3 px-3 md:px-4"></textarea>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary w-full mt-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
+                send_message
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="project-card p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6 ruby-red">Contact Information</h3>
+            <div class="space-y-4 md:space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-9 w-9 md:h-10 md:w-10 rounded-md ruby-bg flex items-center justify-center">
+                  <svg class="h-4 w-4 md:h-5 md:w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="ml-3 md:ml-4">
+                  <p class="text-gray-200 font-semibold text-sm md:text-base"><span class="code-keyword">def</span> email</p>
+                  <a href="mailto:imailsparsha@gmail.com" class="text-gray-300 hover:text-white text-sm md:text-base">
+                    <p class="text-gray-200 font-semibold text-sm md:text-base"><span class="code-keyword">def</span> email</p>
+                  <a href="mailto:imailsparsha@gmail.com" class="text-gray-300 hover:text-white text-sm md:text-base">imailsparsha@gmail.com</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-9 w-9 md:h-10 md:w-10 rounded-md ruby-bg flex items-center justify-center">
+                  <svg class="h-4 w-4 md:h-5 md:w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div class="ml-3 md:ml-4">
+                  <p class="text-gray-200 font-semibold text-sm md:text-base"><span class="code-keyword">def</span> location</p>
+                  <p class="text-gray-300 text-sm md:text-base">Kathmandu, Nepal</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 md:mt-10">
+            <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6 ruby-red">Connect With Me</h3>
+            <div class="flex space-x-5 md:space-x-6">
+              <a href="https://github.com/sparshalc" target="_blank" class="text-gray-400 hover:text-white transition-colors text-xl md:text-2xl">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/sparshalc/" target="_blank" class="text-gray-400 hover:text-white transition-colors text-xl md:text-2xl">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://x.com/sparsha_lc" target="_blank" class="text-gray-400 hover:text-white transition-colors text-xl md:text-2xl">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 md:py-10 bg-gray-900 bg-opacity-70">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+        </div>
+        <div class="flex space-x-5 md:space-x-6">
+          <a href="https://github.com/sparshalc" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-lg md:text-xl"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/sparshalc/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin-in text-lg md:text-xl"></i>
+          </a>
+          <a href="https://x.com/sparsha_lc" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-twitter text-lg md:text-xl"></i>
+          </a>
+        </div>
+      </div>
+      <div class="mt-4 md:mt-6 border-t border-gray-700 pt-4 md:pt-6 text-center text-gray-400">
+        <pre><span class="code-keyword">puts</span> <span class="code-string">"© #{Time.now.year} Sparsha Lamichhane. All rights reserved."</span></pre>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    window.addEventListener('load', function() {
+      const loader = document.querySelector('.ruby-loader');
+      setTimeout(function() {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }, 1000);
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Close mobile menu when clicking a link
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Active navigation link highlighting based on scroll position
+      const sections = document.querySelectorAll('section');
+      const navLinks = {
+        '#home': document.getElementById('nav-home'),
+        '#about': document.getElementById('nav-about'),
+        '#skills': document.getElementById('nav-skills'),
+        '#projects': document.getElementById('nav-projects'),
+        '#opensource': document.getElementById('nav-opensource'),
+        '#contact': document.getElementById('nav-contact')
+      };
+
+      function setActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.clientHeight;
+          if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            current = '#' + section.getAttribute('id');
+          }
+        });
+
+        Object.keys(navLinks).forEach(id => {
+          if (navLinks[id]) {
+            navLinks[id].classList.remove('active-link');
+            if (id === current) {
+              navLinks[id].classList.add('active-link');
+            }
+          }
+        });
+      }
+
+      window.addEventListener('scroll', setActiveLink);
+      setActiveLink();
+    });
+
+    // Detect scrolling to change navbar appearance
+    function updateNavbarOnScroll() {
+      const navbar = document.querySelector('nav.fixed');
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('navbar-scrolled');
+        } else {
+          navbar.classList.remove('navbar-scrolled');
+        }
+      });
+    }
+
+    // Add this to your DOMContentLoaded event
+    document.addEventListener('DOMContentLoaded', function() {
+      // Existing code...
+
+      // Add the navbar scroll detection
+      updateNavbarOnScroll();
+
+      // Rest of your existing code...
+    });
+  </script>
 </body>
 </html>
